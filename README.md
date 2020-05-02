@@ -1,3 +1,5 @@
 # Project 1
 
 Web Programming with Python and JavaScript
+
+When the app is first opened, it goes to the index page where the user can either choose to login or registering, and each option has its own route. To register, the username should be anything but blank and the password should be at least 8 characters long. The username should also be unique. Once signed in, the user gets taken to a mainpage. The user can't go back to the index page without signing out. Attempting to do so redirects the user to the main page. Similarly, trying to access the main page without signing in redirects to the index. Once in the mainpage, the user can search for books and gets results 10 books at a time. There are navigation buttons at the bottom to go to the previous or next page. Once the user clicks on a book, the user goes to a page with info on the book and the user gets to submit a form to post reviews on the page. Once a user posts a review, the form changes such that the user has the option to update his/her review or to delete it.
