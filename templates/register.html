@@ -1,0 +1,28 @@
+{% extends "template.html"%}
+{% block body %}
+<div class="card" style="width: 22rem; margin:auto; padding: 30px; text-align: left;">
+  <div class="card-body">
+    <h5 class="card-title">Register</h5>
+    <form autocomplete="off" action="{{url_for('newaccount')}}" method="post">
+    <div class="form-group">
+      <label>Username</label>
+      <input type="plaintext" class="form-control" name="username" placeholder="Enter username">
+      {% if message==1 %}
+      <small class="form-text" style="color: red;">This username already exists. <a href="{{url_for('login')}}">Log In?</a></small>
+      {% endif %}
+      {% if message==-1 %}
+      <small class="form-text" style="color: red;">Please enter username</small>
+      {% endif %}
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" name="pass" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      {% if message==2 %}
+      <small class="form-text" style="color: red;">Password should contain at least 8 characters</small>
+      {% endif %}
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  </div>
+</div>
+{% endblock %}

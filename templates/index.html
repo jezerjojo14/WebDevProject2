@@ -1,0 +1,23 @@
+{% extends "template.html"%}
+{% block alert %}
+  {% if redirect%}
+  <div class="alert alert-info" role="alert" style="width:50%; margin: 0 auto">
+    Sign in to view website
+  </div>
+  <br><br>
+  {% endif %}
+{% endblock%}
+{% block body %}
+<div class="card" style="width: 22rem; margin:auto; padding: 30px; text-align: left;">
+  <div class="card-body">
+    <h3>New User?</h3>
+    <br>
+    <a href="{{url_for('register')}}"><button type="button" class="btn btn-secondary" name="button">Create Account</button></a>
+    <br>
+    <br><br>
+    <h3>Already have an account?</h3>
+    <br>
+    <a href="{{url_for('login')}}"><button type="button" class="btn btn-secondary" name="button">Log In</button></a>
+  </div>
+</div>
+{% endblock %}

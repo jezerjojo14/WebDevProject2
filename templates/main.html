@@ -1,0 +1,59 @@
+{% extends "template.html"%}
+{% block body %}
+<br><br>
+{% if name != "" %}
+  <h5>Welcome{{name}}</h5>
+  <h5><a href="{{url_for('signout')}}">Sign Out</a></h5>
+{% else %}
+  <h5><a href="{{url_for('login')}}">Log In</a></h5>
+{% endif %}
+<br><br>
+<h3>Search our library</h3>
+<br><br>
+<form autocomplete="off" id="form1" name="form1" action="{{url_for('search')}}" method="post">
+  <div class="input-group" style="align-elements: center;">
+    <input type="text" name="search" placeholder="Search title, author, or ISBN code" style=" margin-left: auto; width: 20rem">
+    <div class="input-group-append" style=" margin-right: auto;">
+      <span class="input-group-text"><button class="button iswearimnotabutton" type="submit">Search</button></span>
+    </div>
+  </div>
+</form>
+{% if search==1 %}
+<br><br>
+<div class="fullwidth-white">
+  <br>
+  <h5>Results for <b>{{terms}}</b></h5>
+  <br>
+  <table class="table">
+    <tr>
+      <th>ISBN</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Year</th>
+    </tr>
+  {% for book in books%}
+      <tr class="hoverboi">
+        <td><a href="{{url_for('bookpage', ISBN=book.isbn)}}">{{ book.isbn }}</a></td>
+        <td><a href="{{url_for('bookpage', ISBN=book.isbn)}}">{{ book.title }}</a></td>
+        <td><a href="{{url_for('bookpage', ISBN=book.isbn)}}">{{ book.author }}</a></td>
+        <td><a href="{{url_for('bookpage', ISBN=book.isbn)}}">{{ book.year }}</a></td>
+      </tr>
+  {% endfor %}
+  </table>
+  <hr>
+  <span class="footer" style="text-align: center">
+  {% if page>1 %}
+    <form id="form3" action="{{url_for('search')}}" method="post">
+      <input name="form3" class="button iswearimnotabutton" type="submit" value="Previous Page">
+    </form>
+  {% endif %}
+  <p>~{{page}} of {{pagecount}}~</p>
+  {% if page<=pagecount-1 %}
+    <form id="form2" action="{{url_for('search')}}" method="post">
+      <input name="form2" class="button iswearimnotabutton" type="submit" value="Next Page">
+    </form>
+  {% endif %}
+  </span>
+</div>
+{% endif %}
+{% endblock %}

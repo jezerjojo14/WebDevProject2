@@ -1,0 +1,37 @@
+{% extends "template.html"%}
+
+{% block alert%}
+  {% if message==3 %}
+    <div class="alert alert-success" role="alert">
+      Account successfully created!
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  <div class="card" style="width: 22rem; margin:auto; padding: 30px; text-align: left;">
+    <div class="card-body">
+      <h5 class="card-title">Login</h5>
+      <form autocomplete="off" action="{{url_for('credcheck')}}" method="post">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="plaintext" class="form-control" name="username" placeholder="Enter username">
+        {% if message==4 %}
+        <small class="form-text" style="color: red;">Username does not exist. <a href="{{url_for('register')}}">Create Account</a></small>
+        {% endif %}
+        {% if message==-2 %}
+        <small class="form-text" style="color: red;">Please enter username</small>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" name="pass" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        {% if message==5 %}
+        <small class="form-text" style="color: red;">Password Incorrect</small>
+        {% endif %}
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+  </div>
+{% endblock %}

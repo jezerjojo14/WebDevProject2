@@ -1,0 +1,74 @@
+{% extends "template.html"%}
+{% block body %}
+<div class="card" style="width: 70%; margin:auto; padding: 30px; text-align: left;">
+  <div class="card-body">
+    <h3>{{book.title}}</h3>
+    <h4>by {{book.author}}</h4>
+    <br>
+    {% if goodreads_rating != None %}
+    <h5>Goodreads rating: {{goodreads_rating}} ({{goodreads_samplesize}} ratings)</h5>
+    {% endif %}
+    {%  if betterreads_rating != None  %}
+    <h5>Betterreads rating: {{'%0.2f' | format(betterreads_rating)}} ({{betterreads_samplesize}} ratings)</h5>
+    <br>
+    {% endif %}
+    <h5>ISBN code: {{book.isbn}}</h5>
+    <h5>Published in {{book.year}}</h5>
+    <br>
+    <hr>
+    <br>
+    <h3>Reviews</h3>
+    <br>
+    {% if reviews|length !=0 %}
+      <ul>
+      {% for review in reviews %}
+        <li style="border: solid 1px; border-radius: 5px; padding: 16px; width: 60%; margin: 16px;">
+          user <b>{{review.username}}</b>{% if review.review!=None%} says "{{review.review}}" {% endif %} <br><u>Rating</u>: {{review.rating}}
+        </li>
+      {% endfor %}
+      </ul>
+    {% else %}
+      <p>No reviews</p>
+    {% endif %}
+    <br><br>
+    <h4>{% if newPost %}Post{%else%}Update{% endif %} your review as <b>{{session_user}}</b> (<a href="{{url_for('signout')}}">Sign out?</a>):</h4>
+    <br>
+    <form action="{{url_for('submitReview')}}" method="post" style="width: 60%">
+      <div class="form-group .form-check-inline">
+        <label>Rating:&nbsp&nbsp</label>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="rating" value="1">
+          <label class="form-check-label">1</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="rating" value="2">
+          <label class="form-check-label">2</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="rating" value="3">
+          <label class="form-check-label">3</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="rating" value="4">
+          <label class="form-check-label">4</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="rating" value="5" checked>
+          <label class="form-check-label">5</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Review:</label>
+        <textarea name="review" class="form-control" placeholder="(Optional)" rows="3"></textarea>
+      </div>
+      <button type="submit" class="btn btn-outline-dark">{% if newPost %}Post{%else%}Update{% endif %}</button>
+    </form>
+    <br>
+    {% if newPost==False %}
+    <form action="{{url_for('submitReview')}}" method="post" style="width: 60%">
+      <input type="submit" name="del" value="Delete existing review" class="btn btn-outline-dark">
+    </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
